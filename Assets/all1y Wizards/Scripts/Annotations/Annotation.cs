@@ -9,7 +9,7 @@ public class Annotation : MonoBehaviour
 {
     [SerializeField] private Image image;
     [SerializeField] private TextMeshProUGUI text;
-
+    
     public void Initialize(string annotationText, Vector3 position)
     {
         text.text = annotationText;
