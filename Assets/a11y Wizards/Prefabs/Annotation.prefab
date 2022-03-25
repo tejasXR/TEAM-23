@@ -178,7 +178,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   scaleAmount: 0.65
-  smoothingTime: 1.1
+  smoothingTime: 10
 --- !u!1 &6320009189365123430
 GameObject:
   m_ObjectHideFlags: 0
