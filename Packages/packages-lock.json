@@ -1,11 +1,36 @@
 {
   "dependencies": {
+    "com.github.asus4.tflite": {
+      "version": "file:com.github.asus4.tflite",
+      "depth": 0,
+      "source": "embedded",
+      "dependencies": {}
+    },
     "com.oshoham.unity-google-cloud-streaming-speech-to-text": {
       "version": "0.1.8",
       "depth": 0,
       "source": "registry",
       "dependencies": {},
       "url": "https://package.openupm.com"
+    },
+    "com.unity.burst": {
+      "version": "1.5.5",
+      "depth": 1,
+      "source": "registry",
+      "dependencies": {
+        "com.unity.mathematics": "1.2.1"
+      },
+      "url": "https://packages.unity.com"
+    },
+    "com.unity.collections": {
+      "version": "1.0.0-pre.5",
+      "depth": 1,
+      "source": "registry",
+      "dependencies": {
+        "com.unity.burst": "1.5.4",
+        "com.unity.test-framework": "1.1.22"
+      },
+      "url": "https://packages.unity.com"
     },
     "com.unity.ext.nunit": {
       "version": "1.0.6",
@@ -39,8 +64,18 @@
       "dependencies": {},
       "url": "https://packages.unity.com"
     },
+    "com.unity.jobs": {
+      "version": "0.11.0-preview.6",
+      "depth": 1,
+      "source": "registry",
+      "dependencies": {
+        "com.unity.collections": "1.0.0-pre.5",
+        "com.unity.mathematics": "1.2.1"
+      },
+      "url": "https://packages.unity.com"
+    },
     "com.unity.mathematics": {
-      "version": "1.1.0",
+      "version": "1.2.1",
       "depth": 1,
       "source": "registry",
       "dependencies": {},
@@ -172,6 +207,26 @@
         "com.unity.ugui": "1.0.0"
       },
       "url": "https://packages.unity.com"
+    },
+    "voxell.speech": {
+      "version": "file:UnityTTS",
+      "depth": 0,
+      "source": "embedded",
+      "dependencies": {
+        "voxell.util": "1.1.1",
+        "com.github.asus4.tflite": "2.4.1"
+      }
+    },
+    "voxell.util": {
+      "version": "file:UnityUtil",
+      "depth": 0,
+      "source": "embedded",
+      "dependencies": {
+        "com.unity.mathematics": "1.2.1",
+        "com.unity.collections": "1.0.0-pre.5",
+        "com.unity.jobs": "0.11.0-preview.6",
+        "com.unity.burst": "1.5.5"
+      }
     },
     "com.unity.modules.ai": {
       "version": "1.0.0",
