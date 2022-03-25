@@ -155,4 +155,4 @@ MonoBehaviour:
   onInterimResult:
     m_PersistentCalls:
       m_Calls: []
-  _microphoneName: 
+  _microphoneName: Microphone Array (Realtek High Definition Audio(SST))

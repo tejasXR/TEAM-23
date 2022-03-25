@@ -6,14 +6,21 @@ using UnityEngine;
 [Serializable]
 public class AnnotationData
 {
-    public string annotationAuthor;
-    public string annotationText;
-    public string annotationTimeStamp;
+    public string text;
+    public string author;
+    public string timeStamp;
+
+    public AnnotationData(string text, string author, string timeStamp)
+    {
+        this.text = text;
+        this.author = author;
+        this.timeStamp = timeStamp;
+    }
 }
 
-public class WriteToJSON
+public static class WriteToJson
 {
-    public static void AnnotationToJSON(AnnotationData annotationData)
+    public static void AnnotationToJson(AnnotationData annotationData)
     {
         var annotation = JsonUtility.ToJson(annotationData);
         System.IO.File.WriteAllText(Application.persistentDataPath + "/Annotations.json", annotation);

@@ -4,15 +4,15 @@ using UnityEngine;
 
 public class AnnotationCreator : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
+    [SerializeField] private Annotation annotationPrefab;
+    [SerializeField] private string currentAuthor;
+    
+    public void CreateAnnotation(string annotationText, Vector3 position)
     {
-        
-    }
+        var annotation = Instantiate(annotationPrefab);
+        annotation.Initialize(annotationText, position);
 
-    // Update is called once per frame
-    void Update()
-    {
-        
+        var annotationData = new AnnotationData(annotationText, currentAuthor, System.DateTime.Now.ToShortDateString());
+        WriteToJson.AnnotationToJson(annotationData);
     }
 }
