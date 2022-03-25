@@ -11,11 +11,7 @@ public class AnnotationSystem : MonoBehaviour
     private List<Annotation> _annotations = new List<Annotation>();
     private Annotation _currentAnnotation;
 
-    /*[Button("Create Annotation")]
-    public void SampleAnnotation()
-    {
-        CreateAnnotation("hello!", Vector3.forward);
-    }*/
+    public bool IsCreatingAnnotation => _currentAnnotation != null;
 
     public void CreateAnnotation(string annotationText, Vector3 position)
     {

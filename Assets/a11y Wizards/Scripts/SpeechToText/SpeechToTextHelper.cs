@@ -18,7 +18,6 @@ public class SpeechToTextHelper : MonoBehaviour {
     private void OnDisable() {
         recognizer.onInterimResult.RemoveListener(_OnInterimSentence);
         recognizer.onFinalResult.RemoveListener(_OnFinalSentence);
-
     }
 
     private void _OnInterimSentence(string sentence) {

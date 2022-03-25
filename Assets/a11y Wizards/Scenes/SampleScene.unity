@@ -140,7 +140,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d9ca7b15811f20543a000c24519b99c0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerHead: {fileID: 463930438}
   annotationSystem: {fileID: 2032212455}
   annotationButton: 15
 --- !u!114 &223974228
@@ -635,7 +634,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   recognizer: {fileID: 807005892}
-  wakeWord: custom
+  wakeWord: comment
   onAnnotationUpdated:
     m_PersistentCalls:
       m_Calls:
@@ -721,5 +720,7 @@ PrefabInstance:
       propertyPath: m_Name
       value: Player
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 9049236764242933945, guid: e4cb191b9fbf80441a6c406185f8656c, type: 3}
+    - {fileID: 9049236764248324243, guid: e4cb191b9fbf80441a6c406185f8656c, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: e4cb191b9fbf80441a6c406185f8656c, type: 3}

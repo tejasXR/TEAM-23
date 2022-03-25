@@ -7,8 +7,6 @@ using UnityEngine;
 
 public class PlayerInput : MonoBehaviour
 {
-    // [SerializeField] private GameObject playerHead;
-    [Space]
     [SerializeField] private AnnotationSystem annotationSystem;
     [SerializeField] private OVRInput.Button annotationButton;
 
@@ -29,6 +27,7 @@ public class PlayerInput : MonoBehaviour
         if (OVRInput.GetDown(annotationButton))
         {
             annotationSystem.CreateAnnotation("", HeadRaycastPosition());
+            TouchScreenKeyboard.Open("", TouchScreenKeyboardType.Default);
         }
     }
 
