@@ -11,15 +11,21 @@ public class AnnotationSystem : MonoBehaviour
     private List<Annotation> _annotations = new List<Annotation>();
     private Annotation _currentAnnotation;
 
-    /*[Button("Create Annotation")]
-    public void SampleAnnotation()
+    private Player _player;
+
+    private void Awake()
     {
-        CreateAnnotation("hello!", Vector3.forward);
-    }*/
+        _player = FindObjectOfType<Player>();
+    }
+
+    public bool IsCreatingAnnotation => _currentAnnotation != null;
 
     public void CreateAnnotation(string annotationText, Vector3 position)
     {
-        Debug.Log("Creating annotation");
+        if (_currentAnnotation != null)
+            CompleteAnnotationCreation();
+
+        Debug.Log($"Creating annotation at {position.ToString("f4")}");
         
         var annotation = Instantiate(annotationPrefab);
         annotation.Initialize(annotationText, position);
@@ -33,7 +39,10 @@ public class AnnotationSystem : MonoBehaviour
     public void UpdateCurrentAnnotation(string newText)
     {
         if (_currentAnnotation == null)
-            CreateAnnotation("", Vector3.forward);
+            CreateAnnotation("", RaycastUtility.RaycastPosition(_player.PlayerHead.transform.position,
+                    _player.PlayerHead.transform.forward));
+        
+        Debug.Log("Updating annotation text");
         
         _currentAnnotation.UpdateText(newText);
     }
@@ -44,6 +53,7 @@ public class AnnotationSystem : MonoBehaviour
             $"{System.DateTime.Now.ToShortDateString()} at {System.DateTime.Now.ToLongTimeString()}" );
         
         _currentAnnotation.SetAnnotationData(annotationData);
+        _currentAnnotation.Complete();
         
         _currentAnnotation = null;
         Debug.Log("Completing annotation creation");

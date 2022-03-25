@@ -10,6 +10,10 @@ public class Annotation : MonoBehaviour
     [SerializeField] private Image image;
     [SerializeField] private TextMeshProUGUI text;
 
+    [SerializeField] private GameObject writingContainer;
+    [SerializeField] private GameObject successContainer;
+    
+
     private AnnotationData _annotationData;
     public AnnotationData AnnotationData => _annotationData;
 
@@ -19,6 +23,7 @@ public class Annotation : MonoBehaviour
     {
         text.text = annotationText;
         Position(position);
+        successContainer.SetActive(false);
     }
     
     public void Initialize(Sprite annotationSprite, Vector3 position)
@@ -32,6 +37,12 @@ public class Annotation : MonoBehaviour
         _annotationData = annotationData;
     }
 
+    public void Complete()
+    {
+        writingContainer.SetActive(false);
+        successContainer.SetActive(true);
+    }
+
     public void UpdateText(string newText)
     {
         text.text = newText;
@@ -41,4 +52,6 @@ public class Annotation : MonoBehaviour
     {
         transform.position = position;
     }
+    
+    
 }

@@ -1,21 +1,14 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-
-
 
 public class PlayerInput : MonoBehaviour
 {
-    // [SerializeField] private GameObject playerHead;
-    [Space]
     [SerializeField] private AnnotationSystem annotationSystem;
     [SerializeField] private OVRInput.Button annotationButton;
 
-    private GameObject _playerHead;
+    private Player _player;
     private void Start()
     {
-        _playerHead = GetComponent<Player>().PlayerHead;
+        _player = GetComponent<Player>();
     }
 
     private void FixedUpdate()
@@ -28,21 +21,11 @@ public class PlayerInput : MonoBehaviour
     {
         if (OVRInput.GetDown(annotationButton))
         {
-            annotationSystem.CreateAnnotation("", HeadRaycastPosition());
+            annotationSystem.CreateAnnotation("", 
+                RaycastUtility.RaycastPosition(_player.PlayerHead.transform.position, 
+                    _player.PlayerHead.transform.forward));
+            
+            // TouchScreenKeyboard.Open("", TouchScreenKeyboardType.Default); // DOESNT WORK :/
         }
-    }
-
-    private Vector3 HeadRaycastPosition()
-    {
-        var ray = new Ray(_playerHead.transform.position, _playerHead.transform.forward);
-        if (Physics.Raycast(ray, out RaycastHit hit))
-        {
-            if (hit.collider != null)
-            {
-                return hit.point;
-            }
-        }
-        
-        return _playerHead.transform.forward;
     }
 }
