@@ -22,6 +22,11 @@ public class Annotation : MonoBehaviour
         Position(position);
     }
 
+    public void UpdateText(string newText)
+    {
+        text.text = newText;
+    }
+
     private void Position(Vector3 position)
     {
         transform.position = position;

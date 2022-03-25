@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.IO;
 using UnityEngine;
 
 [Serializable]
@@ -20,9 +21,12 @@ public class AnnotationData
 
 public static class WriteToJson
 {
+    public static string jsonPath = "C:/Users/tejas/Documents/Personal Projects/MIT Reality Hack 2022/TEAM-23/Assets";
+    
     public static void AnnotationToJson(AnnotationData annotationData)
     {
         var annotation = JsonUtility.ToJson(annotationData);
-        System.IO.File.WriteAllText(Application.persistentDataPath + "/Annotations.json", annotation);
+        var path = Path.Combine(jsonPath, "Annotations.json");
+        File.WriteAllText(path, annotation);
     }
 }
