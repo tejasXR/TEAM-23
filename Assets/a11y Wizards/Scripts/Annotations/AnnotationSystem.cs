@@ -1,8 +1,6 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using GoogleCloudStreamingSpeechToText;
-using Sirenix.OdinInspector;
 using UnityEngine;
 
 public class AnnotationSystem : MonoBehaviour
@@ -13,11 +11,11 @@ public class AnnotationSystem : MonoBehaviour
     private List<Annotation> _annotations = new List<Annotation>();
     private Annotation _currentAnnotation;
 
-    [Button("Create Annotation")]
+    /*[Button("Create Annotation")]
     public void SampleAnnotation()
     {
         CreateAnnotation("hello!", Vector3.forward);
-    }
+    }*/
 
     public void CreateAnnotation(string annotationText, Vector3 position)
     {

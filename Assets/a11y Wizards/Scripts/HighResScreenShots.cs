@@ -1,6 +1,5 @@
 using System;
 using System.IO;
-using Sirenix.OdinInspector;
 using UnityEngine;
 
 namespace a11y_Wizards.Scripts
@@ -27,7 +26,7 @@ namespace a11y_Wizards.Scripts
 
         // private bool takeHiResShot;
 
-        [Button("Take Screenshot")]
+        /*[Button("Take Screenshot")]
         public void Screenshot()
         {
             if (!isProcessing)
@@ -38,7 +37,7 @@ namespace a11y_Wizards.Scripts
             {
                 Debug.Log("Currently Processing");
             }
-        }
+        }*/
 
         //Initialize Directory
         private void Start()
