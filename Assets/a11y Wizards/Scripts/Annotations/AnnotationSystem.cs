@@ -19,7 +19,7 @@ public class AnnotationSystem : MonoBehaviour
         CreateAnnotation("hello!", Vector3.forward);
     }
 
-    private void CreateAnnotation(string annotationText, Vector3 position)
+    public void CreateAnnotation(string annotationText, Vector3 position)
     {
         Debug.Log("Creating annotation");
         

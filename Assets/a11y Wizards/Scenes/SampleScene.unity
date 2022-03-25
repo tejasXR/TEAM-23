@@ -123,6 +123,44 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
+--- !u!1 &223974226 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 9049236764253130075, guid: e4cb191b9fbf80441a6c406185f8656c, type: 3}
+  m_PrefabInstance: {fileID: 9049236764425115404}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &223974227
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 223974226}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d9ca7b15811f20543a000c24519b99c0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playerHead: {fileID: 463930438}
+  annotationSystem: {fileID: 2032212455}
+  annotationButton: 15
+--- !u!114 &223974228
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 223974226}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6a0b1eb4558706749bc0a8cb45609b01, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playerHead: {fileID: 463930438}
+--- !u!1 &463930438 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 9049236764253130079, guid: e4cb191b9fbf80441a6c406185f8656c, type: 3}
+  m_PrefabInstance: {fileID: 9049236764425115404}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &607333068
 GameObject:
   m_ObjectHideFlags: 0
@@ -550,7 +588,7 @@ GameObject:
   - component: {fileID: 2032212455}
   - component: {fileID: 2032212457}
   m_Layer: 0
-  m_Name: AnnotationCreator
+  m_Name: AnnotationSystem
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
