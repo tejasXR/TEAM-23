@@ -8,9 +8,9 @@ using UnityEngine.Networking;
 public class SendData : MonoBehaviour
 {
 
-    private void PackJson(WWWForm data, string jsonString)
+    private IEnumerator PackJson(string uri, string jsonString)
     {
-        var request = new UnityWebRequest(url, "POST");
+        var request = new UnityWebRequest(uri, "POST");
         byte[] bodyRaw = Encoding.UTF8.GetBytes(jsonString);
         request.uploadHandler = (UploadHandler)new UploadHandlerRaw(bodyRaw);
         request.downloadHandler = (DownloadHandler)new DownloadHandlerBuffer();
