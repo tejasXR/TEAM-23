@@ -22,7 +22,7 @@ public class AnnotationData
 
 public static class WriteToJson
 {
-    public static string jsonPath = "C:/Users/tejas/Documents/Personal Projects/MIT Reality Hack 2022/TEAM-23/Assets";
+    public static string jsonPath = "C:/Users/tejas/Documents/Personal Projects/MIT Reality Hack 2022/TEAM-23/Assets/";
     
     /*public static void AnnotationToJson(AnnotationData annotationData)
     {
