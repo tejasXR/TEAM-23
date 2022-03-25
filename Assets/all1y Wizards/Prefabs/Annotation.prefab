@@ -85,6 +85,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6320009187907687791}
   - component: {fileID: 6320009187907687790}
+  - component: {fileID: -6926848589450651320}
   m_Layer: 0
   m_Name: Annotation
   m_TagString: Untagged
@@ -134,6 +135,20 @@ Canvas:
   m_SortingLayerID: 0
   m_SortingOrder: 0
   m_TargetDisplay: 0
+--- !u!114 &-6926848589450651320
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6320009187907687789}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f838447c0d5a2b84ab690c9054099169, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  image: {fileID: 6320009187397602071}
+  text: {fileID: 6320009189365123432}
 --- !u!1 &6320009189365123430
 GameObject:
   m_ObjectHideFlags: 0
