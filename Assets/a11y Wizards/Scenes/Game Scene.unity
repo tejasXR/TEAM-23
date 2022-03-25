@@ -5176,7 +5176,7 @@ MonoBehaviour:
   CollideLayers:
     serializedVersion: 2
     m_Bits: 1
-  HeightOffset: 0
+  HeightOffset: 0.5
   MinimumHeight: 1
   MaximumHeight: 2.5
 --- !u!114 &1625878780

@@ -11,6 +11,13 @@ public class AnnotationSystem : MonoBehaviour
     private List<Annotation> _annotations = new List<Annotation>();
     private Annotation _currentAnnotation;
 
+    private Player _player;
+
+    private void Awake()
+    {
+        _player = FindObjectOfType<Player>();
+    }
+
     public bool IsCreatingAnnotation => _currentAnnotation != null;
 
     public void CreateAnnotation(string annotationText, Vector3 position)
@@ -29,7 +36,10 @@ public class AnnotationSystem : MonoBehaviour
     public void UpdateCurrentAnnotation(string newText)
     {
         if (_currentAnnotation == null)
-            CreateAnnotation("", Vector3.forward);
+            CreateAnnotation("", RaycastUtility.RaycastPosition(_player.PlayerHead.transform.position,
+                    _player.PlayerHead.transform.forward));
+        
+        Debug.Log("Updating annotation text");
         
         _currentAnnotation.UpdateText(newText);
     }

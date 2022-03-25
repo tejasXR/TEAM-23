@@ -1,9 +1,4 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-
-
 
 public class PlayerInput : MonoBehaviour
 {
@@ -26,22 +21,10 @@ public class PlayerInput : MonoBehaviour
     {
         if (OVRInput.GetDown(annotationButton))
         {
-            annotationSystem.CreateAnnotation("", HeadRaycastPosition());
-            TouchScreenKeyboard.Open("", TouchScreenKeyboardType.Default);
+            annotationSystem.CreateAnnotation("", 
+                RaycastUtility.RaycastPosition(_playerHead.transform.position, _playerHead.transform.forward));
+            
+            // TouchScreenKeyboard.Open("", TouchScreenKeyboardType.Default); // DOESNT WORK :/
         }
-    }
-
-    private Vector3 HeadRaycastPosition()
-    {
-        var ray = new Ray(_playerHead.transform.position, _playerHead.transform.forward);
-        if (Physics.Raycast(ray, out RaycastHit hit))
-        {
-            if (hit.collider != null)
-            {
-                return hit.point;
-            }
-        }
-        
-        return _playerHead.transform.forward;
     }
 }
