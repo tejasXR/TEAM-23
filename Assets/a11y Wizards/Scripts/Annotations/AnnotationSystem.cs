@@ -22,7 +22,10 @@ public class AnnotationSystem : MonoBehaviour
 
     public void CreateAnnotation(string annotationText, Vector3 position)
     {
-        Debug.Log("Creating annotation");
+        if (_currentAnnotation != null)
+            CompleteAnnotationCreation();
+
+        Debug.Log($"Creating annotation at {position.ToString("f4")}");
         
         var annotation = Instantiate(annotationPrefab);
         annotation.Initialize(annotationText, position);
@@ -50,6 +53,7 @@ public class AnnotationSystem : MonoBehaviour
             $"{System.DateTime.Now.ToShortDateString()} at {System.DateTime.Now.ToLongTimeString()}" );
         
         _currentAnnotation.SetAnnotationData(annotationData);
+        _currentAnnotation.Complete();
         
         _currentAnnotation = null;
         Debug.Log("Completing annotation creation");

@@ -5,10 +5,10 @@ public class PlayerInput : MonoBehaviour
     [SerializeField] private AnnotationSystem annotationSystem;
     [SerializeField] private OVRInput.Button annotationButton;
 
-    private GameObject _playerHead;
+    private Player _player;
     private void Start()
     {
-        _playerHead = GetComponent<Player>().PlayerHead;
+        _player = GetComponent<Player>();
     }
 
     private void FixedUpdate()
@@ -22,7 +22,8 @@ public class PlayerInput : MonoBehaviour
         if (OVRInput.GetDown(annotationButton))
         {
             annotationSystem.CreateAnnotation("", 
-                RaycastUtility.RaycastPosition(_playerHead.transform.position, _playerHead.transform.forward));
+                RaycastUtility.RaycastPosition(_player.PlayerHead.transform.position, 
+                    _player.PlayerHead.transform.forward));
             
             // TouchScreenKeyboard.Open("", TouchScreenKeyboardType.Default); // DOESNT WORK :/
         }
