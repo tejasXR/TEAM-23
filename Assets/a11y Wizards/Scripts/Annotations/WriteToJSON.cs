@@ -22,16 +22,8 @@ public class AnnotationData
 
 public static class WriteToJson
 {
-    public static string jsonPath = "C:/Users/tejas/Documents/Personal Projects/MIT Reality Hack 2022/TEAM-23/Assets/";
+    public static string jsonPath = Application.persistentDataPath; // "C:/Users/tejas/Documents/Personal Projects/MIT Reality Hack 2022/TEAM-23/Assets/";
     
-    /*public static void AnnotationToJson(AnnotationData annotationData)
-    {
-        var currentJson = JsonUtility.
-        var annotation = JsonUtility.ToJson(annotationData);
-        var path = Path.Combine(jsonPath, "Annotations.json");
-        File.WriteAllText(path, annotation);
-    }*/
-
     public static void AnnotationsToJson(List<Annotation> annotationsList)
     {
         string annotationString = "";
@@ -40,7 +32,16 @@ public static class WriteToJson
         {
             annotationString += JsonUtility.ToJson(annotation.AnnotationData);
         }
+
+        try
+        {
+            File.WriteAllText(jsonPath, annotationString);
+        }
+        catch (Exception e)
+        {
+            Debug.Log("Can't write to Json for some reason!");
+        }
         
-        File.WriteAllText(jsonPath, annotationString);
+        Debug.Log($"Saving annotation data to {jsonPath}");
     }
 }
