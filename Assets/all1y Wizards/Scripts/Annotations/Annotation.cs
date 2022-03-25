@@ -9,7 +9,12 @@ public class Annotation : MonoBehaviour
 {
     [SerializeField] private Image image;
     [SerializeField] private TextMeshProUGUI text;
-    
+
+    private AnnotationData _annotationData;
+    public AnnotationData AnnotationData => _annotationData;
+
+    public string Sentence => text.text;
+
     public void Initialize(string annotationText, Vector3 position)
     {
         text.text = annotationText;
@@ -20,6 +25,11 @@ public class Annotation : MonoBehaviour
     {
         image.sprite = annotationSprite;
         Position(position);
+    }
+
+    public void SetAnnotationData(AnnotationData annotationData)
+    {
+        _annotationData = annotationData;
     }
 
     public void UpdateText(string newText)

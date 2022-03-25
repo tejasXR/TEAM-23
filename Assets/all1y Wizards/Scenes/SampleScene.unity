@@ -273,6 +273,17 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 8655117150e76ab4f9977f22fd85c5dd, type: 3}
+--- !u!114 &807005892 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 7092895570796504766, guid: 8655117150e76ab4f9977f22fd85c5dd, type: 3}
+  m_PrefabInstance: {fileID: 807005891}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 37f43be3dcef461f9ee3aa85dd4204bf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &963194225
 GameObject:
   m_ObjectHideFlags: 0
@@ -366,6 +377,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2032212456}
   - component: {fileID: 2032212455}
+  - component: {fileID: 2032212457}
   m_Layer: 0
   m_Name: AnnotationCreator
   m_TagString: Untagged
@@ -401,3 +413,47 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2032212457
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2032212454}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1e4732cf381b42c2b6b43a8afa3d9df0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  recognizer: {fileID: 807005892}
+  wakeWord: custom
+  onAnnotationUpdated:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 2032212455}
+        m_TargetAssemblyTypeName: AnnotationSystem, Assembly-CSharp
+        m_MethodName: UpdateCurrentAnnotation
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  onAnnotationComplete:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 2032212455}
+        m_TargetAssemblyTypeName: AnnotationSystem, Assembly-CSharp
+        m_MethodName: CompleteAnnotationCreation
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2

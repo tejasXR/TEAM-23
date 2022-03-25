@@ -22,14 +22,17 @@ public class SpeechToTextHelper : MonoBehaviour {
     }
 
     private void _OnInterimSentence(string sentence) {
-        if (!sentence.StartsWith(wakeWord)) return;
+        Debug.Log($"{sentence}");
+        if (!sentence.ToLowerInvariant().StartsWith(wakeWord.ToLowerInvariant())) return;
         var sentenceWithoutWakeWord = sentence.Substring(wakeWord.Length);
         onAnnotationUpdated?.Invoke(sentenceWithoutWakeWord);
     }
 
     private void _OnFinalSentence(string sentence) {
-        if (!sentence.StartsWith(wakeWord)) return;
+        Debug.Log($"Completing speech");
+        if (!sentence.ToLowerInvariant().StartsWith(wakeWord.ToLowerInvariant())) return;
         _OnInterimSentence(sentence);
         onAnnotationComplete?.Invoke();
+        
     }
 }
