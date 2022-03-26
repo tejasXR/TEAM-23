@@ -19,8 +19,8 @@ public class GameState {
     }
 
     public void AddCompletedCounter() {
-        Debug.Log($"Done {done}/{total}");
         done++;
+        Debug.Log($"Done {done}/{total}");
         if (done == total) {
             GameEnded?.Invoke();
         }
