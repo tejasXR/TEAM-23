@@ -1,8 +1,11 @@
+using System;
 using UnityEngine;
 
 public class PlayerInput : MonoBehaviour
 {
-    [SerializeField] private SystemsManager systemsManager;
+    public event Action AnnotationButtonPressedCallback;
+    
+    // [SerializeField] private SystemsManager systemsManager;
     [SerializeField] private OVRInput.Button annotationButton;
 
     private Player _player;
@@ -23,7 +26,9 @@ public class PlayerInput : MonoBehaviour
         {
             // systemsManager.StartAnnotationFlow();
             // System.TriggerManual("Confirm");
-            systemsManager.ChangeFlowState(SystemsManager.FlowState.UserInput);
+            // systemsManager.ChangeFlowState(SystemsManager.FlowState.UserInput);
+            
+            AnnotationButtonPressedCallback?.Invoke();
             
             // TouchScreenKeyboard.Open("", TouchScreenKeyboardType.Default); // DOESNT WORK :/
         }
