@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Linq;
+using OculusSampleFramework;
 using UnityEngine;
 
 public class ColoredObject : MonoBehaviour {
@@ -21,13 +22,14 @@ public class ColoredObject : MonoBehaviour {
 
     private void SetInside() {
         inside = true;
-        var colliders = GetComponentsInChildren<Collider>();
-        foreach (var collider in colliders) {
-            collider.enabled = false;
+        var colliders = GetComponentsInChildren<DistanceGrabbable>();
+        foreach (var collider in colliders)
+        {
+            Destroy(collider);
         }
 
-        var rb = GetComponent<Rigidbody>();
-        rb.isKinematic = true;
+        GetComponent<Rigidbody>().useGravity = false;
+        GetComponent<Rigidbody>().isKinematic = true;
     }
     
     

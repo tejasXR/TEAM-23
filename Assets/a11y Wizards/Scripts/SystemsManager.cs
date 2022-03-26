@@ -62,7 +62,7 @@ public class SystemsManager : MonoBehaviour
     private IEnumerator AnnotationFlow()
     {
         PositionKeyboard();
-        _timeStamp = System.DateTime.Now.ToString("yyyy-MM-dd\\THH:mm:ss\\Z");
+        _timeStamp = System.DateTime.Now.ToString("yyyy-MM-dd\\THH:mm:ss\\");
         StartCoroutine(EnableKeyboard());
         yield return new WaitUntil(() => flowState == FlowState.WantsToInputFeedback);
         WriteFeedback();
