@@ -2936,6 +2936,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1000010145710606, guid: f28287b1c722ebd4aa4f4d8547ed7fa8, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 1000010614386324, guid: f28287b1c722ebd4aa4f4d8547ed7fa8, type: 3}
       propertyPath: m_Name
       value: VRKeys
@@ -6388,7 +6392,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d9ca7b15811f20543a000c24519b99c0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  systemsManager: {fileID: 0}
+  systemsManager: {fileID: 1816907679}
   annotationButton: 15
 --- !u!114 &1625878783
 MonoBehaviour:
