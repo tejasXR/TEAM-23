@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
+using UnityEngine.SocialPlatforms.Impl;
 
 public class GameState {
     private int total = 0;
@@ -24,6 +25,10 @@ public class GameState {
         if (done == total) {
             GameEnded?.Invoke();
         }
+    }
+
+    public string GetScore() {
+        return $"{done}/{total}";
     }
 
     private void OnEnd() {
