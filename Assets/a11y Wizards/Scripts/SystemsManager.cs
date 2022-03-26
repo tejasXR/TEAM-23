@@ -10,163 +10,83 @@ public class SystemsManager : MonoBehaviour
     [SerializeField] private AnnotationSystem annotationSystem;
     [SerializeField] private StreamingRecognizer streamingRecognizer;
     [SerializeField] private Keyboard keyboard;
-    [SerializeField] private PlayerInput playerInput;
 
-    [SerializeField] private GameObject writingCanvas;
-    [SerializeField] private PreviewCanvas previewCanvas;
+    private bool _flowStarted;
 
-
-    /*[SerializeField] private SpeechToTextHelper flowStartHelper;
-    [SerializeField] private SpeechToTextHelper confirmPreviewHelper;*/
-
-    // private bool _flowStarted;
-    // private bool _feedbackWritten;
-    // private bool _feedbackSubmitted;
     public enum FlowState
     {
-        AwaitingCall,
-        WantsToInputFeedback,
-        WantsToPreviewFeedback,
-        WantsToSubmitFeedback
+        Initialization,
+        InitialPrompt,
+        AwaitingUserCall,
+        UserInput,
+        AnnotationPreview
     }
 
     public FlowState flowState { get; private set; }
 
     private void OnEnable()
     {
-        playerInput.AnnotationButtonPressedCallback += StartAnnotationFlow;
-        // flowStartHelper.
-
-        // streamingRecognizer.onInterimResult.AddListener(UpdateKeyboardDisplayText);
+        streamingRecognizer.onInterimResult.AddListener(UpdateKeyboardDisplayText);
     }
 
     private void OnDisable()
     {
-        playerInput.AnnotationButtonPressedCallback -= StartAnnotationFlow;
-        // streamingRecognizer.onInterimResult.RemoveListener(UpdateKeyboardDisplayText);
+        streamingRecognizer.onInterimResult.RemoveListener(UpdateKeyboardDisplayText);
         // streamingRecognizer.onInterimResult.AddListener(System.OnSentenceUpdated);
     }
 
     public void StartAnnotationFlow()
     {
-        if (flowState != FlowState.AwaitingCall) return;
-        ChangeFlowState(FlowState.WantsToInputFeedback);
-        StartCoroutine(AnnotationFlow());
-    }
-
-    private IEnumerator AnnotationFlow()
-    {
-        // _flowStarted = true;
         StartCoroutine(EnableKeyboard());
-        yield return new WaitUntil(() => flowState == FlowState.WantsToInputFeedback);
-        WriteFeedback();
-        streamingRecognizer.onInterimResult.AddListener(UpdateKeyboardDisplayText);
-        yield return new WaitUntil(() => flowState == FlowState.WantsToPreviewFeedback);
-        PreviewFeedback();
-        yield return new WaitUntil(() => flowState == FlowState.WantsToSubmitFeedback);
-        SubmitFeedback();
+        _flowStarted = true;
     }
 
     public void ChangeFlowState(FlowState newState)
     {
-        flowState = newState;
-        /*switch (newState)
+        switch (newState)
         {
-            case FlowState.AwaitingCall:
-                // Subscribe to player button press
-                playerInput.AnnotationButtonPressedCallback += StartAnnotationFlow;
+            case FlowState.Initialization:
                 break;
-            case FlowState.UserInputtingFeedback:
-                // Unsubscribe to button press
-                playerInput.AnnotationButtonPressedCallback -= StartAnnotationFlow;
-
+            case FlowState.InitialPrompt:
+                break;
+            case FlowState.AwaitingUserCall:
+                break;
+            case FlowState.UserInput:
+                StartAnnotationFlow();
                 /*System.RegisterAll(
                     ("confirm", () => ChangeFlowState(FlowState.AnnotationPreview)),
-                    ("cancel", () => ))#1#
+                    ("cancel", () => ))*/
                 break;
-            case FlowState.FeedbackPreview:
+            case FlowState.AnnotationPreview:
                 break;
-        
             default:
                 throw new ArgumentOutOfRangeException(nameof(newState), newState, null);
-        }*/
-    }
-
-    private void UpdateKeyboardDisplayText(string s)
-    {
-        if (!keyboard.initialized) return;
-        if (flowState != FlowState.WantsToInputFeedback) return;
-        keyboard.SetText(keyboard.displayText.text + s);
-    }
-    
-    public void Keyboard_EnterKeyPressed()
-    {
-      
-        
-        if (flowState == FlowState.WantsToInputFeedback)
-            ChangeFlowState(FlowState.WantsToPreviewFeedback);
-        else
-        {
-            ChangeFlowState(FlowState.WantsToSubmitFeedback);
         }
     }
-    
-    public void Keyboard_CancelKeyPressed()
+
+    public void UpdateKeyboardDisplayText(string s)
     {
-        CancelFeedback();
+        if (!keyboard.initialized) return;
+        if (!_flowStarted) return;
+        keyboard.SetText(s);
     }
 
-    public void Voice_StartFeedback()
+    public void CancelFeedback()
     {
-        StartAnnotationFlow();
+        keyboard.Disable();
+        _flowStarted = false;
     }
 
-    public void Voice_PreviewFeedback()
+    public void SubmitFeedback()
     {
-        if (flowState != FlowState.WantsToInputFeedback) return;
-        ChangeFlowState(FlowState.WantsToPreviewFeedback);
-    }
-
-    public void Voice_CancelFeedback()
-    {
-        CancelFeedback();
-    }
-
-    private void WriteFeedback()
-    {
-        writingCanvas.SetActive(true);
-        previewCanvas.gameObject.SetActive(false);
-    }
-
-    private void PreviewFeedback()
-    {
-        writingCanvas.SetActive(false);
-        previewCanvas.SetText(keyboard.displayText.text);
-        previewCanvas.gameObject.SetActive(true);
-    }
-
-    private void SubmitFeedback()
-    {
+        keyboard.Disable();
+        
         var feedbackText = keyboard.displayText.text;
         annotationSystem.CreateAnnotation(feedbackText);
 
-        ResetSystem();
+        _flowStarted = false;
     }
 
-    private void CancelFeedback()
-    {
-        ResetSystem();
-    }
-
-    private void ResetSystem()
-    {
-        StopAllCoroutines();
-        keyboard.Disable();
-        
-        ChangeFlowState(FlowState.AwaitingCall);
-    }
-
-    
     private IEnumerator EnableKeyboard()
     {
         yield return new WaitUntil(() => keyboard.initialized);
