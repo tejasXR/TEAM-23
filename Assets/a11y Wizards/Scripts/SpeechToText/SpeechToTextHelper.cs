@@ -20,7 +20,8 @@ public class SpeechToTextHelper : MonoBehaviour {
         recognizer.onFinalResult.RemoveListener(_OnFinalSentence);
     }
 
-    private void _OnInterimSentence(string sentence) {
+    private void _OnInterimSentence(string sentence)
+    {
         Debug.Log($"{sentence}");
         if (!sentence.ToLowerInvariant().StartsWith(wakeWord.ToLowerInvariant())) return;
         var sentenceWithoutWakeWord = sentence.Substring(wakeWord.Length);

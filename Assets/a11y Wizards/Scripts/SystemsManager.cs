@@ -65,15 +65,20 @@ public class SystemsManager : MonoBehaviour
         // PositionKeyboard();
         _timeStamp = System.DateTime.Now.ToString("yyyy-MM-dd\\THH:mm:ss\\Z");
         StartCoroutine(EnableKeyboard());
+        Debug.Log("Keyboard is enabled, and waiting for user input");
         yield return new WaitUntil(() => flowState == FlowState.WantsToInputFeedback);
         WriteFeedback();
-        streamingRecognizer.onInterimResult.AddListener(UpdateKeyboardDisplayText);
+        Debug.Log("Keyboard updated with new text, waiting for confirm their feedback");
         yield return new WaitUntil(() => flowState == FlowState.WantsToPreviewFeedback);
         PreviewFeedback();
+        Debug.Log("User did confirm, waiting for user to preview and submit");
         yield return new WaitUntil(() => flowState == FlowState.WantsToSubmitFeedback);
         SubmitFeedback();
+        Debug.Log("User submitted text");
     }
 
+    
+    
     public void ChangeFlowState(FlowState newState)
     {
         flowState = newState;
@@ -99,11 +104,13 @@ public class SystemsManager : MonoBehaviour
         }*/
     }
 
-    private void UpdateKeyboardDisplayText(string s)
+    public void UpdateKeyboardDisplayText(string s)
     {
         if (!keyboard.initialized) return;
+        var lower = s.ToLowerInvariant();
+        if (lower == "confirm" || lower == "cancel") return;
         if (flowState != FlowState.WantsToInputFeedback) return;
-        keyboard.SetText(keyboard.text + " " + s);
+        keyboard.SetText(s);
     }
 
     private void PositionKeyboard()
@@ -140,8 +147,14 @@ public class SystemsManager : MonoBehaviour
 
     public void Voice_PreviewFeedback()
     {
-        if (flowState != FlowState.WantsToInputFeedback) return;
-        ChangeFlowState(FlowState.WantsToPreviewFeedback);
+        if (flowState == FlowState.WantsToInputFeedback)
+        {
+            ChangeFlowState(FlowState.WantsToPreviewFeedback);
+
+        } else if (flowState == FlowState.WantsToPreviewFeedback)
+        {
+            ChangeFlowState(FlowState.WantsToSubmitFeedback);
+        }
     }
 
     public void Voice_CancelFeedback()
@@ -154,6 +167,11 @@ public class SystemsManager : MonoBehaviour
         writingCanvas.SetActive(true);
         screenshotTaker.CaptureData("", _timeStamp);
         previewCanvas.gameObject.SetActive(false);
+    }
+
+    public void Voice_InputFeedback(string sentence)
+    {
+        
     }
 
     private void PreviewFeedback()
