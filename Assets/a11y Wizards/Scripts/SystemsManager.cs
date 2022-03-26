@@ -56,7 +56,7 @@ public class SystemsManager : MonoBehaviour
 
     private IEnumerator AnnotationFlow()
     {
-        // _flowStarted = true;
+        PositionKeyboard();
         StartCoroutine(EnableKeyboard());
         yield return new WaitUntil(() => flowState == FlowState.WantsToInputFeedback);
         WriteFeedback();
@@ -96,13 +96,23 @@ public class SystemsManager : MonoBehaviour
     {
         if (!keyboard.initialized) return;
         if (flowState != FlowState.WantsToInputFeedback) return;
-        keyboard.SetText(keyboard.displayText.text + s);
+        keyboard.SetText(keyboard.text + s);
+    }
+
+    private void PositionKeyboard()
+    {
+        var newPosition = playerInput.GetComponent<Player>().transform.forward + keyboard.positionRelativeToUser;
+        keyboard.transform.position = newPosition;
+
+        var playerDirection = playerInput.gameObject.transform.position;
+        playerDirection.z = keyboard.transform.rotation.z;
+        playerDirection.x = keyboard.transform.rotation.x;
+
+        keyboard.transform.rotation = Quaternion.Euler(playerDirection.x, playerDirection.y, playerDirection.z);
     }
     
     public void Keyboard_EnterKeyPressed()
     {
-      
-        
         if (flowState == FlowState.WantsToInputFeedback)
             ChangeFlowState(FlowState.WantsToPreviewFeedback);
         else
@@ -160,8 +170,11 @@ public class SystemsManager : MonoBehaviour
 
     private void ResetSystem()
     {
+        streamingRecognizer.onInterimResult.RemoveListener(UpdateKeyboardDisplayText);
+
         StopAllCoroutines();
         keyboard.Disable();
+        keyboard.SetText("");
         
         ChangeFlowState(FlowState.AwaitingCall);
     }

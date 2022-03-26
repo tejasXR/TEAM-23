@@ -162,17 +162,17 @@ namespace VRKeys {
 		}
 
 		private void PositionAndAttachMallets () {
-			transform.SetParent (playerSpace.transform, false);
+			/*transform.SetParent (playerSpace.transform, false);
 			transform.localPosition = positionRelativeToUser;
 
 			leftMallet.transform.SetParent (leftHand.transform);
 			leftMallet.transform.localPosition = Vector3.zero;
-			leftMallet.transform.localRotation = Quaternion.Euler (90f, 0f, 0f);
+			leftMallet.transform.localRotation = Quaternion.Euler (90f, 0f, 0f);*/
 			leftMallet.SetActive (true);
 
-			rightMallet.transform.SetParent (rightHand.transform);
+			/*rightMallet.transform.SetParent (rightHand.transform);
 			rightMallet.transform.localPosition = Vector3.zero;
-			rightMallet.transform.localRotation = Quaternion.Euler (90f, 0f, 0f);
+			rightMallet.transform.localRotation = Quaternion.Euler (90f, 0f, 0f);*/
 			rightMallet.SetActive (true);
 		}
 
