@@ -2966,7 +2966,19 @@ MonoBehaviour:
         m_CallState: 2
   onAnnotationComplete:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1787743616}
+        m_TargetAssemblyTypeName: SystemsManager, Assembly-CSharp
+        m_MethodName: Voice_SentenceDone
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &1175436741
 GameObject:
   m_ObjectHideFlags: 0

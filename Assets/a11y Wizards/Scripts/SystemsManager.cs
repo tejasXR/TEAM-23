@@ -33,7 +33,8 @@ public class SystemsManager : MonoBehaviour
         AwaitingCall,
         WantsToInputFeedback,
         WantsToPreviewFeedback,
-        WantsToSubmitFeedback
+        WantsToSubmitFeedback,
+        InputSentenceDone
     }
 
     public FlowState flowState { get; private set; }
@@ -71,7 +72,8 @@ public class SystemsManager : MonoBehaviour
         yield return new WaitUntil(() => flowState == FlowState.WantsToInputFeedback);
         WriteFeedback();
         Debug.Log("Keyboard updated with new text, waiting for confirm their feedback");
-        // yield return new WaitUntil(() => flowState == FlowState.WantsToPreviewFeedback);
+        yield return new WaitUntil(() => flowState == FlowState.InputSentenceDone);
+        ChangeFlowState(FlowState.WantsToPreviewFeedback);
         PreviewFeedback();
         Debug.Log("User did confirm, waiting for user to preview and submit");
         yield return new WaitUntil(() => flowState == FlowState.WantsToSubmitFeedback);
@@ -110,7 +112,7 @@ public class SystemsManager : MonoBehaviour
     {
         if (!keyboard.initialized) return;
         var lower = s.ToLowerInvariant();
-        if (lower == "confirm" || lower == "cancel") return;
+        if (lower == "confirm" || lower == "cancel" || lower == "create") return;
         if (flowState != FlowState.WantsToInputFeedback) return;
         keyboard.SetText(s);
     }
@@ -147,6 +149,12 @@ public class SystemsManager : MonoBehaviour
         StartAnnotationFlow();
     }
 
+    public void Voice_SentenceDone()
+    {
+        if (flowState == FlowState.WantsToInputFeedback && keyboard.text.ToLowerInvariant() != "create")
+            ChangeFlowState(FlowState.InputSentenceDone);
+    }
+
     public void Voice_PreviewFeedback()
     {
         if (flowState == FlowState.WantsToInputFeedback)
@@ -166,6 +174,7 @@ public class SystemsManager : MonoBehaviour
 
     private void WriteFeedback()
     {
+        speechManager.SpeakWithSDKPlugin($"Waiting for text or voice input.");
         writingCanvas.SetActive(true);
         screenshotTaker.CaptureData("", _timeStamp);
         previewCanvas.gameObject.SetActive(false);
@@ -192,12 +201,13 @@ public class SystemsManager : MonoBehaviour
 
     private void CancelFeedback()
     {
+        // ChangeFlowState(FlowState.WantsToInputFeedback);
         ResetSystem();
     }
 
     private void ResetSystem()
     {
-        streamingRecognizer.onInterimResult.RemoveListener(UpdateKeyboardDisplayText);
+        // streamingRecognizer.onInterimResult.RemoveListener(UpdateKeyboardDisplayText);
 
         StopAllCoroutines();
         keyboard.Disable();
