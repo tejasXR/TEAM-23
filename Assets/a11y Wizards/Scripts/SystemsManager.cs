@@ -10,6 +10,7 @@ public class SystemsManager : MonoBehaviour
 {
     [SerializeField] private AnnotationSystem annotationSystem;
     [SerializeField] private StreamingRecognizer streamingRecognizer;
+    [SerializeField] private SpeechManager speechManager;
     [SerializeField] private Keyboard keyboard;
     [SerializeField] private PlayerInput playerInput;
     [SerializeField] private ScreenshotNetwork screenshotTaker;
@@ -65,11 +66,12 @@ public class SystemsManager : MonoBehaviour
         // PositionKeyboard();
         _timeStamp = System.DateTime.Now.ToString("yyyy-MM-dd\\THH:mm:ss\\Z");
         StartCoroutine(EnableKeyboard());
+        speechManager.SpeakWithSDKPlugin("Keyboard is enabled. Speak your annotation when ready.");
         Debug.Log("Keyboard is enabled, and waiting for user input");
         yield return new WaitUntil(() => flowState == FlowState.WantsToInputFeedback);
         WriteFeedback();
         Debug.Log("Keyboard updated with new text, waiting for confirm their feedback");
-        yield return new WaitUntil(() => flowState == FlowState.WantsToPreviewFeedback);
+        // yield return new WaitUntil(() => flowState == FlowState.WantsToPreviewFeedback);
         PreviewFeedback();
         Debug.Log("User did confirm, waiting for user to preview and submit");
         yield return new WaitUntil(() => flowState == FlowState.WantsToSubmitFeedback);
@@ -169,14 +171,10 @@ public class SystemsManager : MonoBehaviour
         previewCanvas.gameObject.SetActive(false);
     }
 
-    public void Voice_InputFeedback(string sentence)
-    {
-        
-    }
-
     private void PreviewFeedback()
     {
         writingCanvas.SetActive(false);
+        speechManager.SpeakWithSDKPlugin($"You wrote {keyboard.text}. Say confirm if this is correct, cancel if not.");
         previewCanvas.SetText(keyboard.text);
         previewCanvas.gameObject.SetActive(true);
     }
