@@ -58,7 +58,7 @@
     try {
       const obj = JSON.parse(evt.data);
       // console.log(obj);
-      addRows(obj.timestamp, obj.imgs[0], obj.imgs[1], obj.imgs[2], "annotation hello");
+      addRows(obj.timestamp, obj.imgs[0], obj.imgs[1], obj.imgs[2], obj.annotation);
     } catch (e) {
       console.log(e);
     }

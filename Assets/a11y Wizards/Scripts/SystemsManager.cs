@@ -102,7 +102,7 @@ public class SystemsManager : MonoBehaviour
     {
         if (!keyboard.initialized) return;
         if (flowState != FlowState.WantsToInputFeedback) return;
-        keyboard.SetText(keyboard.text + s);
+        keyboard.SetText(keyboard.text + " " + s);
     }
 
     private void PositionKeyboard()
@@ -158,13 +158,13 @@ public class SystemsManager : MonoBehaviour
     private void PreviewFeedback()
     {
         writingCanvas.SetActive(false);
-        previewCanvas.SetText(keyboard.displayText.text);
+        previewCanvas.SetText(keyboard.text);
         previewCanvas.gameObject.SetActive(true);
     }
 
     private void SubmitFeedback()
     {
-        var feedbackText = keyboard.displayText.text;
+        var feedbackText = keyboard.text;
         screenshotTaker.UpdateAnnotation(feedbackText);
         screenshotTaker.SendData();
         annotationSystem.CreateAnnotation(feedbackText);
