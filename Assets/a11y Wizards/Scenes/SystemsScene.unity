@@ -253,7 +253,8 @@ Transform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
+  m_Children:
+  - {fileID: 1226768082}
   m_Father: {fileID: 1670729980}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -3075,8 +3076,8 @@ Transform:
   - {fileID: 1060689562}
   - {fileID: 1782971616}
   - {fileID: 106467762}
-  m_Father: {fileID: 1670729980}
-  m_RootOrder: 6
+  m_Father: {fileID: 15690493}
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1269135934
 GameObject:
@@ -3196,6 +3197,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1469028672}
   - component: {fileID: 1469028673}
+  - component: {fileID: 1469028674}
   m_Layer: 0
   m_Name: Screenshot Taker
   m_TagString: Untagged
@@ -3226,14 +3228,28 @@ MonoBehaviour:
   m_GameObject: {fileID: 1469028671}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: bf531a29d55f3ba4081add941078b23f, type: 3}
+  m_Script: {fileID: 11500000, guid: 21b56ff6d51d24aa091b2d360d56acf1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   cameras:
   - {fileID: 1060689564}
-  captureWidth: 1020
+  - {fileID: 1782971618}
+  - {fileID: 106467764}
+  captureWidth: 1280
   captureHeight: 720
-  format: 2
+  format: 1
+--- !u!114 &1469028674
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1469028671}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 73f51cf72c69b49c18a49833c4fab98b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &1660255753
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -3424,7 +3440,6 @@ Transform:
   - {fileID: 1211940489}
   - {fileID: 398121431}
   - {fileID: 742157323}
-  - {fileID: 1226768082}
   m_Father: {fileID: 1126079527}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}

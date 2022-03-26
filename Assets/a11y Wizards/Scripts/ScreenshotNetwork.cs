@@ -25,7 +25,7 @@ namespace a11y_Wizards.Scripts
         private bool isProcessing;
        
 
-        private void Update() {
+        /*private void Update() {
         if (Input.GetKeyUp("k"))
             {
                 AllyData data = new AllyData();
@@ -38,7 +38,7 @@ namespace a11y_Wizards.Scripts
                 }
                 WebsocketManager.Instance.SendWebSocketMessage(data.SaveToString());
             }
-        }
+        }*/
 
         //Initialize Directory
         private void Start()
@@ -61,6 +61,32 @@ namespace a11y_Wizards.Scripts
             return filename;
         }
 
+        private AllyData _data;
+
+        public void UpdateAnnotation(string annotationString)
+        {
+            _data.annotation = annotationString;
+        }
+        
+        public void CaptureData(string annotationString, string timestamp)
+        {
+            var data = _data = new AllyData();
+            
+            data.imgs = new List<string>();
+            data.annotation = annotationString;
+            data.timestamp = timestamp;
+            
+            foreach (var camera in cameras)
+            {
+                CaptureScreenshot(data, camera);
+            } 
+        }
+
+        public void SendData()
+        {
+            WebsocketManager.Instance.SendWebSocketMessage(_data.SaveToString());
+        }
+
         private void CaptureScreenshot(AllyData data, Camera camera)
         {
             isProcessing = true;
@@ -76,6 +102,7 @@ namespace a11y_Wizards.Scripts
                     screenShot = new Texture2D(captureWidth, captureHeight, TextureFormat.RGB24, false);
                 }
 
+                camera.enabled = true;
                 camera.targetTexture = renderTexture;
                 camera.Render();
                 // mark the render texture as active and read the current pixel data into the Texture2D
@@ -134,6 +161,7 @@ namespace a11y_Wizards.Scripts
                 Destroy(renderTexture);
                 renderTexture = null;
                 screenShot = null;
-            }
+                camera.enabled = false;
+        }
     }
 }

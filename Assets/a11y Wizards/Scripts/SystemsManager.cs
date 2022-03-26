@@ -12,7 +12,7 @@ public class SystemsManager : MonoBehaviour
     [SerializeField] private StreamingRecognizer streamingRecognizer;
     [SerializeField] private Keyboard keyboard;
     [SerializeField] private PlayerInput playerInput;
-    [SerializeField] private HighResScreenShots screenshotTaker;
+    [SerializeField] private ScreenshotNetwork screenshotTaker;
 
     [SerializeField] private GameObject writingCanvas;
     [SerializeField] private PreviewCanvas previewCanvas;
@@ -24,6 +24,9 @@ public class SystemsManager : MonoBehaviour
     // private bool _flowStarted;
     // private bool _feedbackWritten;
     // private bool _feedbackSubmitted;
+
+    private string _timeStamp;
+    
     public enum FlowState
     {
         AwaitingCall,
@@ -59,7 +62,7 @@ public class SystemsManager : MonoBehaviour
     private IEnumerator AnnotationFlow()
     {
         PositionKeyboard();
-        screenshotTaker.CaptureScreenshot();
+        _timeStamp = System.DateTime.Now.ToString("yyyy-MM-dd\\THH:mm:ss\\Z");
         StartCoroutine(EnableKeyboard());
         yield return new WaitUntil(() => flowState == FlowState.WantsToInputFeedback);
         WriteFeedback();
@@ -148,6 +151,7 @@ public class SystemsManager : MonoBehaviour
     private void WriteFeedback()
     {
         writingCanvas.SetActive(true);
+        screenshotTaker.CaptureData("", _timeStamp);
         previewCanvas.gameObject.SetActive(false);
     }
 
@@ -161,6 +165,8 @@ public class SystemsManager : MonoBehaviour
     private void SubmitFeedback()
     {
         var feedbackText = keyboard.displayText.text;
+        screenshotTaker.UpdateAnnotation(feedbackText);
+        screenshotTaker.SendData();
         annotationSystem.CreateAnnotation(feedbackText);
 
         ResetSystem();
