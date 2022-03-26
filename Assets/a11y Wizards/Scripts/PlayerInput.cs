@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class PlayerInput : MonoBehaviour
 {
-    [SerializeField] private AnnotationSystem annotationSystem;
+    [SerializeField] private SystemsManager systemsManager;
     [SerializeField] private OVRInput.Button annotationButton;
 
     private Player _player;
@@ -21,9 +21,7 @@ public class PlayerInput : MonoBehaviour
     {
         if (OVRInput.GetDown(annotationButton))
         {
-            annotationSystem.CreateAnnotation("", 
-                RaycastUtility.RaycastPosition(_player.PlayerHead.transform.position, 
-                    _player.PlayerHead.transform.forward));
+            systemsManager.StartAnnotationFlow();;
             
             // TouchScreenKeyboard.Open("", TouchScreenKeyboardType.Default); // DOESNT WORK :/
         }

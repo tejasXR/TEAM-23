@@ -20,13 +20,16 @@ public class AnnotationSystem : MonoBehaviour
 
     public bool IsCreatingAnnotation => _currentAnnotation != null;
 
-    public void CreateAnnotation(string annotationText, Vector3 position)
+    public void CreateAnnotation(string annotationText)
     {
         if (_currentAnnotation != null)
             CompleteAnnotationCreation();
 
-        Debug.Log($"Creating annotation at {position.ToString("f4")}");
+        var position = RaycastUtility.RaycastPosition(_player.PlayerHead.transform.position,
+            _player.PlayerHead.transform.forward);
         
+        Debug.Log($"Creating annotation at {position.ToString("f4")}");
+
         var annotation = Instantiate(annotationPrefab);
         annotation.Initialize(annotationText, position);
         
@@ -39,8 +42,7 @@ public class AnnotationSystem : MonoBehaviour
     public void UpdateCurrentAnnotation(string newText)
     {
         if (_currentAnnotation == null)
-            CreateAnnotation("", RaycastUtility.RaycastPosition(_player.PlayerHead.transform.position,
-                    _player.PlayerHead.transform.forward));
+            CreateAnnotation("");
         
         Debug.Log("Updating annotation text");
         

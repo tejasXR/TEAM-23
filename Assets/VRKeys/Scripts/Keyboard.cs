@@ -576,7 +576,8 @@ namespace VRKeys {
 		/// Update the display text, including trailing caret.
 		/// </summary>
 		private void UpdateDisplayText () {
-			string display = (text.Length > 37) ? text.Substring (text.Length - 37) : text;
+			// string display = (text.Length > 37) ? text.Substring (text.Length - 37) : text;
+			string display = text;
 
 			displayText.text = string.Format (
 				"<#{0}>{1}</color><#{2}>_</color>",
