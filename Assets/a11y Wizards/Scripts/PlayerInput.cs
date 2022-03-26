@@ -14,7 +14,7 @@ public class PlayerInput : MonoBehaviour
         _player = GetComponent<Player>();
     }
 
-    private void FixedUpdate()
+    private void Update()
     {
         OVRInput.Update();
         CreateAnnotationButton();
