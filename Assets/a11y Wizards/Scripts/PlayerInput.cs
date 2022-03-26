@@ -21,7 +21,9 @@ public class PlayerInput : MonoBehaviour
     {
         if (OVRInput.GetDown(annotationButton))
         {
-            systemsManager.StartAnnotationFlow();;
+            // systemsManager.StartAnnotationFlow();
+            // System.TriggerManual("Confirm");
+            systemsManager.ChangeFlowState(SystemsManager.FlowState.UserInput);
             
             // TouchScreenKeyboard.Open("", TouchScreenKeyboardType.Default); // DOESNT WORK :/
         }

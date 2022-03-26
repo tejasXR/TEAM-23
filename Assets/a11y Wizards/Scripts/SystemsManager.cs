@@ -13,10 +13,16 @@ public class SystemsManager : MonoBehaviour
 
     private bool _flowStarted;
 
-    /*private void Start()
+    public enum FlowState
     {
-        StartAnnotationFlow();
-    }*/
+        Initialization,
+        InitialPrompt,
+        AwaitingUserCall,
+        UserInput,
+        AnnotationPreview
+    }
+
+    public FlowState flowState { get; private set; }
 
     private void OnEnable()
     {
@@ -26,12 +32,36 @@ public class SystemsManager : MonoBehaviour
     private void OnDisable()
     {
         streamingRecognizer.onInterimResult.RemoveListener(UpdateKeyboardDisplayText);
+        // streamingRecognizer.onInterimResult.AddListener(System.OnSentenceUpdated);
     }
 
     public void StartAnnotationFlow()
     {
         StartCoroutine(EnableKeyboard());
         _flowStarted = true;
+    }
+
+    public void ChangeFlowState(FlowState newState)
+    {
+        switch (newState)
+        {
+            case FlowState.Initialization:
+                break;
+            case FlowState.InitialPrompt:
+                break;
+            case FlowState.AwaitingUserCall:
+                break;
+            case FlowState.UserInput:
+                StartAnnotationFlow();
+                /*System.RegisterAll(
+                    ("confirm", () => ChangeFlowState(FlowState.AnnotationPreview)),
+                    ("cancel", () => ))*/
+                break;
+            case FlowState.AnnotationPreview:
+                break;
+            default:
+                throw new ArgumentOutOfRangeException(nameof(newState), newState, null);
+        }
     }
 
     public void UpdateKeyboardDisplayText(string s)
