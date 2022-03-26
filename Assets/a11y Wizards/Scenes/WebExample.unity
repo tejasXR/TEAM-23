@@ -158,7 +158,7 @@ MonoBehaviour:
   - {fileID: 1380162141}
   captureWidth: 1280
   captureHeight: 720
-  format: 2
+  format: 1
 --- !u!4 &642850535
 Transform:
   m_ObjectHideFlags: 0
