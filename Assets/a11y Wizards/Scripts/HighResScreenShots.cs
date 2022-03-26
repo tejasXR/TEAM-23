@@ -55,7 +55,7 @@ namespace a11y_Wizards.Scripts
             //timestamp to append to the screenshot filename
             string timestamp = DateTime.Now.ToString("yyyyMMddTHHmmss");
             // use width, height, and timestamp for unique file 
-            var filename = string.Format("{0}/screen_{1}x{2}_{3}.{4}", outputFolder, width, height, timestamp, format.ToString().ToLower());
+            var filename = string.Format("{0}screen_{1}x{2}_{3}.{4}", outputFolder, width, height, timestamp, format.ToString().ToLower());
             // return filename
             return filename;
         }
@@ -67,7 +67,7 @@ namespace a11y_Wizards.Scripts
                 System.DateTime.Now.ToString("yyyy-MM-dd_HH-mm-ss"));
         }
 
-        private void CaptureScreenshot()
+        public void CaptureScreenshot()
         {
             isProcessing = true;
             // create screenshot objects
@@ -81,6 +81,7 @@ namespace a11y_Wizards.Scripts
 
             // get main camera and render its output into the off-screen render texture created above
             Camera camera = cameras[0];
+            camera.enabled = true;
             camera.targetTexture = renderTexture;
             camera.Render();
             // mark the render texture as active and read the current pixel data into the Texture2D
@@ -133,6 +134,7 @@ namespace a11y_Wizards.Scripts
             Destroy(renderTexture);
             renderTexture = null;
             screenShot = null;
+            camera.enabled = false;
         }
     }
 }

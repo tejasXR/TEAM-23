@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using a11y_Wizards.Scripts;
 using GoogleCloudStreamingSpeechToText;
 using UnityEngine;
 using VRKeys;
@@ -11,6 +12,7 @@ public class SystemsManager : MonoBehaviour
     [SerializeField] private StreamingRecognizer streamingRecognizer;
     [SerializeField] private Keyboard keyboard;
     [SerializeField] private PlayerInput playerInput;
+    [SerializeField] private HighResScreenShots screenshotTaker;
 
     [SerializeField] private GameObject writingCanvas;
     [SerializeField] private PreviewCanvas previewCanvas;
@@ -57,6 +59,7 @@ public class SystemsManager : MonoBehaviour
     private IEnumerator AnnotationFlow()
     {
         PositionKeyboard();
+        screenshotTaker.CaptureScreenshot();
         StartCoroutine(EnableKeyboard());
         yield return new WaitUntil(() => flowState == FlowState.WantsToInputFeedback);
         WriteFeedback();
