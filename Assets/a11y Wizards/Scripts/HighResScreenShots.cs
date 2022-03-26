@@ -129,7 +129,10 @@ namespace a11y_Wizards.Scripts
 
                     file.Write(fileData, 0, fileData.Length);
                     file.Close();
-                    Debug.Log(string.Format("Screenshot Saved {0}, size {1}", filename, fileData.Length));
+                    Debug.Log(string.Format("Screenshot Saved {0}, size {1}, path: {2}", filename, fileData.Length, outputFolder));
+
+                    // Send base64 encoded bytes over websocket to browser
+                    WebsocketManager.Instance.SendWebSocketMessage(Convert.ToBase64String(fileData));
                     isProcessing = false;
                 }).Start();
                 //Cleanup
